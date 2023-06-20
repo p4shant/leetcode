@@ -24,8 +24,6 @@ public:
     }
     
     bool isBalanced(TreeNode* root) {
-        if(root==NULL)
-            return 1;
         if(height(root)==-1)return false;
         return true;
         
