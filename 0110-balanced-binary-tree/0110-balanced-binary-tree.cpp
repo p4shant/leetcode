@@ -31,14 +31,6 @@ public:
         
         //checking if tree is not balanced
         int df=abs(lft-rgt);
-        if(df>1)
-        return false;
-        
-        //calling the function again
-        if(!isBalanced(root->left)) return false;
-        if(!isBalanced(root->right)) return false;
-        
-        
-        return 1;
+        return df<=1&&isBalanced(root->left)&&isBalanced(root->right);
     }
 };
