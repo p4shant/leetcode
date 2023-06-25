@@ -43,28 +43,20 @@ class Solution
     //Function to return list containing elements of right view of binary tree.
     vector<int> rightView(Node *root)
     {
-        vector<int> ans;
-        vector<Node*>tmp;
-        queue<Node*> q;
-        q.push(root);
-        tmp.push_back(root);
-        ans.push_back(root->data);
-        while(!q.empty()){
-           int sz=q.size();
+       vector<int> ans;
+       deque<Node*> dq;
+       dq.push_back(root);
+       while(!dq.empty()){
+           int sz=dq.size();
+           ans.push_back(dq.back()->data);
            for(int i=0;i<sz;i++){
-               root=q.front();
-               q.pop();
-               if(root->left!=NULL){
-                   q.push(root->left);
-                   tmp.push_back(root->left);
-               }
-               if(root->right!=NULL){
-                   q.push(root->right);
-                   tmp.push_back(root->right);
-               }
+               root=dq.front();
+               dq.pop_front();
+               if(root->left!=NULL)
+               dq.push_back(root->left);
+               if(root->right!=NULL)
+               dq.push_back(root->right);
            }
-           if(!q.empty())
-           ans.push_back(tmp.back()->data);
        }
        return ans;
     }
