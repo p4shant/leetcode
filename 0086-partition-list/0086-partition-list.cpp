@@ -11,52 +11,56 @@
 class Solution {
 public:
     ListNode* partition(ListNode* head, int x) {
-        ListNode *ptr=head;
-        ListNode *tmp=NULL;
 
-        while(ptr!=NULL&&ptr->val!=x&&ptr->val<x){
-            if(ptr->val<x){
-                tmp=ptr;
-            }
+        vector<int> small,large;
+
+        ListNode *ptr=head;
+
+        while(ptr!=NULL){
+
+            if(ptr->val<x)
+            small.push_back(ptr->val);
+            else
+            large.push_back(ptr->val);
+
             ptr=ptr->next;
 
         }
 
+        ListNode *head2=NULL;
+        ptr=head2;
+        
+        for(auto &it:small){
 
+            ListNode *tmp=new ListNode();
+            tmp->val=it;
+            tmp->next=NULL;
 
-
-        while(ptr!=NULL&&ptr->next!=NULL){
-
-            if(ptr->next->val<x){
-
-                ListNode *t1=ptr->next;
-                ptr->next=ptr->next->next;
-                
-                if(tmp){
-                    if(tmp->next!=NULL){
-                        t1->next=tmp->next;
-                        tmp->next=t1;
-                        tmp=tmp->next;
-                    }
-                    else{
-                        t1->next=tmp;
-                        head=t1;
-                    }
-                }
-                else{
-                    t1->next=head;
-                    head=t1;
-                    tmp=t1;
-                }
+            if(head2==NULL){
+                head2=tmp;
+                ptr=tmp;
             }
             else{
-                if(ptr->next!=NULL)
+                ptr->next=tmp;
                 ptr=ptr->next;
             }
-
         }
 
-        return head;
+        for(auto &it:large){
+            ListNode *tmp=new ListNode();
+            tmp->val=it;
+            tmp->next=NULL;
 
+            if(head2==NULL){
+                head2=tmp;
+                ptr=tmp;
+            }
+            else{
+                ptr->next=tmp;
+                 ptr=ptr->next;
+            }
+        }
+
+        return head2;
     }
 };
