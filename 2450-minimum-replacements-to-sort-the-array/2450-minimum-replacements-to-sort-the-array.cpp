@@ -1,32 +1,16 @@
 class Solution {
 public:
-    long long minimumReplacement(vector<int>& nums) {
-        
-       long long int n=nums.size(),cnt=0;
-        long long int mx=nums[n-1];
-
-        for(int i=n-2;i>=0;i--){
-
-            if(nums[i]>mx){
-
-                int tmp=(nums[i]/mx);
-
-                if(nums[i]%mx!=0){
-                    cnt+=tmp;
-                    mx=nums[i]/(tmp+1);
-                }
-                else{
-                    cnt+=tmp-1;
-                    mx=nums[i]/(tmp);
-                }
+    long long minimumReplacement(vector<int>& v) {
+        long long ans = 0;
+        long long Maxmin = v[v.size()-1];
+        for(int i=v.size()-2;i>=0;i--){
+            if(v[i]>Maxmin){
+                int partition = ceil(v[i]/double(Maxmin));
+                ans += partition - 1;
+                Maxmin = v[i]/partition;
             }
-            else{
-                mx=nums[i];
-            }
-
-            cout<<mx<<" "<<cnt<<endl;
+            else Maxmin = v[i];
         }
-
-        return cnt;
+        return ans;
     }
 };
