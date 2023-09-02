@@ -1,19 +1,30 @@
 class Solution {
 public:
-    int rec(int n,vector<int>& dp){
-        if(n<=1) return n;
-        if(dp[n]!=-1) return dp[n];
-        int k = log2(n);
-        int a = 1 + rec(n-(pow(2,k)),dp);
-        return dp[n] = a;
-    }
 
     vector<int> countBits(int n) {
-        vector<int> ans;
-        vector<int> dp(n+1,-1);
-        for(int i=0;i<=n;i++){
-            ans.push_back(rec(i,dp));
+
+        vector<int> bit;
+        vector<int> sex(n+1,-1);
+        bit.push_back(0);
+
+
+        for(int i=1;i<=n;i++){
+
+            int cnt=0;
+
+            int x=(log2(i));
+            int lodu=pow(2,x);
+
+            if(lodu==i)
+            cnt=1;
+            else
+            cnt+=1+sex[i-lodu];
+
+            sex[i]=cnt;
+
+            bit.push_back(cnt);
         }
-        return ans;
+        return bit;
+
     }
 };
