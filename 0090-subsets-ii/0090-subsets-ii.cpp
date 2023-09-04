@@ -2,6 +2,7 @@ class Solution {
 public:
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
 
+        sort(nums.begin(),nums.end());
 
         set<vector<int>> st;
         vector<vector<int>> ans;
@@ -14,14 +15,12 @@ public:
                 if((i&(1<<j))==0)
                 tmp.push_back(nums[j]);
             }
-            sort(tmp.begin(),tmp.end());
             if(st.count(tmp)==0){
                 ans.push_back(tmp);
                 st.insert(tmp);
             }
 
         }
-
         return ans;
     }
 };
