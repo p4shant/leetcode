@@ -7,7 +7,7 @@ public:
         for(int i=0;i<pow(2,n);i++){
             vector<int> tmp;
             for(int j=0;j<n;j++){
-                if((i&(1<<j))==0)
+                if((i&(1<<j))!=0)
                 tmp.push_back(nums[j]);
             }
             ans.push_back(tmp);
