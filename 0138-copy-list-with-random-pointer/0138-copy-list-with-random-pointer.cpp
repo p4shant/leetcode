@@ -16,17 +16,50 @@ public:
 
 class Solution {
 public:
-    unordered_map<Node*, Node*> mp;
     Node* copyRandomList(Node* head) {
-    if (head == NULL)
-      return NULL ;
-    if (mp.count(head))
-      return mp[head];
 
-    Node* newNode = new Node(head->val);
-    mp[head] = newNode;
-    newNode->next = copyRandomList(head->next);
-    newNode->random = copyRandomList(head->random);
-    return newNode;
-  }
+        unordered_map<Node* ,Node*> ump;
+
+        if(head==NULL)
+        return NULL;
+
+        Node* newnode = new Node(head->val);
+
+        Node* ptr=head;
+        Node* head2=newnode;
+        Node* ptr2=head2;
+
+        ump[head]=head2;
+
+        if(ptr!=NULL)
+        ptr=ptr->next;
+
+
+        while(ptr!=NULL){
+            cout<<1<<endl;
+            Node* newnode=new Node(ptr->val);
+            newnode->next=NULL;
+
+            ptr2->next=newnode;
+            ptr2=ptr2->next;
+
+            ump[ptr]=ptr2;
+
+            ptr=ptr->next;
+
+        }
+
+        ptr=head;
+        ptr2=head2;
+
+        while(ptr!=NULL){
+            
+            ptr2->random=ump[ptr->random];
+            ptr=ptr->next;
+            ptr2=ptr2->next;
+
+        }
+
+        return head2;
+    }
 };
