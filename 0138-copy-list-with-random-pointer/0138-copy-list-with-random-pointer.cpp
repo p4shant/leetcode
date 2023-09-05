@@ -18,32 +18,40 @@ class Solution {
 public:
     Node* copyRandomList(Node* head) {
 
-        unordered_map<Node* ,Node*> ump;
-
         if(head==NULL)
         return NULL;
+        
+        map<Node*,int> ump;
+        map<int,Node*> ump2;
 
-        Node* newnode = new Node(head->val);
+        int i=1;
 
-        Node* ptr=head;
-        Node* head2=newnode;
-        Node* ptr2=head2;
+        Node *node=new Node(-1);
+        Node *head2=node , *ptr=head ;
+        Node *ptr2=head2;
 
-        ump[head]=head2;
+        ptr2->val=ptr->val;
+        ptr2->next=NULL;
 
+        ump2[i]=ptr2;
+        ump[ptr]=i;
+
+        ++i;
+        
         if(ptr!=NULL)
         ptr=ptr->next;
 
-
         while(ptr!=NULL){
-            cout<<1<<endl;
-            Node* newnode=new Node(ptr->val);
-            newnode->next=NULL;
 
-            ptr2->next=newnode;
+            Node *node=new Node(ptr->val);
+            node->next=NULL;
+
+            ptr2->next=node;
             ptr2=ptr2->next;
 
-            ump[ptr]=ptr2;
+            ump2[i]=ptr2;
+            ump[ptr]=i;
+            ++i;
 
             ptr=ptr->next;
 
@@ -53,13 +61,12 @@ public:
         ptr2=head2;
 
         while(ptr!=NULL){
-            
-            ptr2->random=ump[ptr->random];
+            ptr2->random=ump2[ump[ptr->random]];
             ptr=ptr->next;
             ptr2=ptr2->next;
-
         }
-
+        
         return head2;
+
     }
 };
