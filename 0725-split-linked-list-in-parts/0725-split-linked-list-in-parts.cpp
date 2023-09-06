@@ -20,10 +20,6 @@ public:
             int sz=cnt/k;
             if(cnt%k!=0)
             ++sz;
-            if(cnt==0){
-                ans.push_back(NULL);
-                continue;
-            }
             cnt=cnt-sz;
             k--;
             cout<<cnt<<" ";
