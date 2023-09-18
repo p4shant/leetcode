@@ -1,23 +1,20 @@
 class Solution {
 public:
     vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
-        vector<pair<int,int>> tmp;
+        priority_queue < pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>> > pq;
         int n=mat.size(),m=mat[0].size();
         for(auto i=0;i<n;i++){
             int cnt=0;
             for(auto j=0;j<m;j++){
                 cnt+=mat[i][j];
             }
-            tmp.push_back(make_pair(cnt,i));
+            pq.push(make_pair(cnt,i));
         }
-        sort(tmp.begin(),tmp.end());
-        int i=0;
-        for(auto &it:tmp)
-        cout<<it.first<<" "<<it.second<<endl;
         vector<int> ans;
         while(k--){
-            ans.push_back(tmp[i].second);
-            ++i;
+            int x=pq.top().second;
+            ans.push_back(x);
+            pq.pop();
         }
         return ans;
     }
